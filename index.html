@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z&R NEW TECHNOLOGY SAC - Registro de Mantenimiento HVAC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f4f6f9; color: #1e293b; line-height: 1.6; }
+        .top-bar { background: #0f172a; padding: 8px 0; border-bottom: 2px solid #f0c929; }
+        .top-bar .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+        .top-bar .company-meta { display: flex; align-items: center; gap: 20px; font-size: 12px; color: #94a3b8; }
+        .top-bar .company-meta i { color: #f0c929; margin-right: 6px; }
+        .top-bar .company-meta span { display: inline-flex; align-items: center; }
+
+        .main-header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 20px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; }
+        .main-header .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+        .brand { display: flex; align-items: center; gap: 16px; }
+        .brand-logo { width: 48px; height: 48px; border-radius: 12px; overflow: hidden; flex-shrink: 0; background: #fff; display: flex; align-items: center; justify-content: center; }
+        .brand-logo img { width: 100%; height: 100%; object-fit: contain; }
+        .brand-text h1 { font-size: 18px; font-weight: 700; color: #ffffff; letter-spacing: -0.3px; line-height: 1.2; }
+        .brand-text h1 span { color: #f0c929; }
+        .brand-text p { font-size: 11px; color: #64748b; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; }
+        .header-badge { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.05); padding: 8px 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08); }
+        .header-badge i { font-size: 18px; color: #f0c929; }
+        .header-badge .badge-text { text-align: right; }
+        .header-badge .badge-text strong { display: block; color: #ffffff; font-size: 13px; font-weight: 600; }
+        .header-badge .badge-text small { display: block; color: #64748b; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .container-main { max-width: 1200px; margin: 0 auto; padding: 30px 24px; }
+        .page-title { margin-bottom: 30px; }
+        .page-title h2 { font-size: 26px; font-weight: 700; color: #0f172a; letter-spacing: -0.5px; }
+        .page-title h2 span { color: #f0c929; }
+        .page-title p { color: #64748b; font-size: 14px; margin-top: 4px; }
+        .breadcrumb { display: flex; gap: 8px; font-size: 12px; color: #94a3b8; margin-bottom: 8px; }
+        .breadcrumb a { color: #2563eb; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+
+        .layout-grid { display: grid; grid-template-columns: 1fr 380px; gap: 30px; align-items: start; }
+
+        .card { background: #ffffff; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03); border: 1px solid #f1f5f9; overflow: hidden; }
+        .card-header { padding: 20px 24px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
+        .card-header h3 { font-size: 16px; font-weight: 600; color: #0f172a; }
+        .card-header .card-badge { background: #f0f9ff; color: #2563eb; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+        .card-body { padding: 24px; }
+
+        .form-section-title { font-size: 13px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #f1f5f9; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+        .form-group label .required { color: #ef4444; }
+        .form-group input, .form-group textarea { width: 100%; padding: 11px 14px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 14px; font-family: 'Inter', sans-serif; color: #1e293b; transition: all 0.2s ease; background: #fafbfc; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.08); background: #ffffff; }
+        .form-group textarea { resize: vertical; }
+        .input-icon-wrap { position: relative; }
+        .input-icon-wrap i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; }
+        .input-icon-wrap input { padding-left: 40px; }
+
+        .phase-blocks { margin-bottom: 20px; }
+        .phase-block { border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 16px; overflow: hidden; transition: box-shadow 0.2s ease; }
+        .phase-block:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .phase-block-header { display: flex; align-items: center; gap: 12px; padding: 14px 18px; cursor: pointer; user-select: none; }
+        .phase-block-header .phase-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; flex-shrink: 0; }
+        .phase-block.antes .phase-icon { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .phase-block.durante .phase-icon { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .phase-block.despues .phase-icon { background: linear-gradient(135deg, #10b981, #059669); }
+        .phase-block-header .phase-info { flex: 1; }
+        .phase-block-header .phase-info h4 { font-size: 14px; font-weight: 600; color: #1e293b; }
+        .phase-block-header .phase-info p { font-size: 12px; color: #94a3b8; }
+        .phase-block-header .phase-toggle { color: #94a3b8; font-size: 12px; transition: transform 0.2s ease; }
+        .phase-block.collapsed .phase-body { display: none; }
+        .phase-block.collapsed .phase-toggle { transform: rotate(-90deg); }
+        .phase-body { padding: 0 18px 18px; }
+        .phase-body .form-group { margin-bottom: 12px; }
+
+        .fotos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .foto-slot { position: relative; }
+        .foto-slot .upload-box { border: 2px dashed #e2e8f0; border-radius: 10px; aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; background: #fafbfc; text-align: center; gap: 6px; }
+        .foto-slot .upload-box:hover { border-color: #2563eb; background: #f8faff; }
+        .foto-slot .upload-box i { font-size: 22px; color: #94a3b8; }
+        .foto-slot .upload-box .slot-label { font-size: 10px; color: #94a3b8; font-weight: 500; }
+        .foto-slot .upload-box .slot-status { font-size: 9px; color: #cbd5e1; }
+        .foto-slot input[type="file"] { display: none; }
+        .foto-slot .foto-preview { display: none; position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 1; border: 1px solid #e2e8f0; }
+        .foto-slot .foto-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .foto-slot .foto-preview .remove-foto { position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(15,23,42,0.6); color: #fff; font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; opacity: 0; z-index: 3; }
+        .foto-slot .foto-preview:hover .remove-foto { opacity: 1; }
+        .foto-slot .foto-preview .remove-foto:hover { background: #ef4444; }
+        .phase-progress { display: flex; gap: 6px; margin-top: 8px; }
+        .phase-progress .dot { width: 8px; height: 8px; border-radius: 50%; background: #e2e8f0; transition: all 0.2s ease; }
+        .phase-progress .dot.filled { background: #10b981; }
+
+        .btn-row { display: flex; gap: 12px; margin-top: 8px; padding-top: 20px; border-top: 1px solid #f1f5f9; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; padding: 12px 28px; border-radius: 10px; font-size: 14px; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s ease; font-family: 'Inter', sans-serif; box-shadow: 0 4px 14px rgba(37,99,235,0.25); }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,99,235,0.35); }
+        .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: #64748b; padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 500; border: 1.5px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease; font-family: 'Inter', sans-serif; }
+        .btn-secondary:hover { border-color: #cbd5e1; color: #1e293b; background: #f8fafc; }
+
+        .sidebar-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .stat-card { background: #ffffff; border: 1px solid #f1f5f9; border-radius: 12px; padding: 16px; text-align: center; transition: all 0.2s ease; }
+        .stat-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .stat-card .stat-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-size: 16px; color: #fff; }
+        .stat-card .stat-icon.blue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .stat-card .stat-icon.amber { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .stat-card .stat-icon.green { background: linear-gradient(135deg, #10b981, #059669); }
+        .stat-card .stat-icon.red { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .stat-card .stat-num { font-size: 24px; font-weight: 700; color: #0f172a; }
+        .stat-card .stat-label { font-size: 11px; color: #64748b; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .sidebar-card { background: #ffffff; border: 1px solid #f1f5f9; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+        .sidebar-card h4 { font-size: 13px; font-weight: 600; color: #0f172a; margin-bottom: 12px; }
+
+        .recent-list { list-style: none; }
+        .recent-list li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f8fafc; font-size: 13px; }
+        .recent-list li:last-child { border-bottom: none; }
+        .recent-list li .recent-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .recent-list li .recent-info { flex: 1; }
+        .recent-list li .recent-info strong { display: block; font-size: 13px; color: #1e293b; font-weight: 500; }
+        .recent-list li .recent-info small { display: block; font-size: 11px; color: #94a3b8; }
+        .recent-list li .recent-equipo { font-size: 11px; color: #64748b; }
+
+        .gallery-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+        .gallery-count { font-size: 14px; color: #64748b; }
+        .gallery-count strong { color: #0f172a; }
+        .gallery-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .gallery-actions button { padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: 'Inter', sans-serif; }
+        .btn-report { background: #0f172a; color: #ffffff; border: none; }
+        .btn-report:hover { background: #1e293b; }
+        .btn-export { background: transparent; color: #2563eb; border: 1.5px solid #2563eb; }
+        .btn-export:hover { background: #2563eb; color: #ffffff; }
+        .btn-delete-all { background: transparent; color: #ef4444; border: 1.5px solid #ef4444; opacity: 0.5; display:inline-flex; align-items:center; gap:6px; border-radius:8px; cursor:pointer; font-family:'Inter',sans-serif; font-size:11px; padding:6px 14px; }
+        .btn-delete-all:hover { opacity: 1; background: #ef4444; color: #ffffff; }
+
+        .gallery-empty { text-align: center; padding: 60px 20px; }
+        .gallery-empty i { font-size: 48px; color: #cbd5e1; margin-bottom: 16px; }
+        .gallery-empty h3 { font-size: 18px; color: #64748b; margin-bottom: 6px; }
+        .gallery-empty p { font-size: 13px; color: #94a3b8; }
+
+        .gallery-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .g-card { background: #ffffff; border: 1px solid #f1f5f9; border-radius: 12px; overflow: hidden; transition: all 0.2s ease; }
+        .g-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .g-card-top { display: flex; justify-content: space-between; align-items: flex-start; padding: 16px 18px 0; }
+        .g-card-top .g-info h3 { font-size: 15px; font-weight: 600; color: #0f172a; }
+        .g-card-top .g-info .g-sala { font-size: 12px; color: #2563eb; font-weight: 500; margin-top: 2px; }
+        .g-card-top .g-date { font-size: 11px; color: #94a3b8; text-align: right; white-space: nowrap; }
+        .g-card-phases { padding: 12px 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .g-phase-mini { border-radius: 8px; padding: 10px; border: 1px solid #f1f5f9; }
+        .g-phase-mini .phase-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+        .g-phase-mini .phase-label.antes { color: #ef4444; }
+        .g-phase-mini .phase-label.durante { color: #f59e0b; }
+        .g-phase-mini .phase-label.despues { color: #10b981; }
+        .g-phase-mini .phase-desc { font-size: 11px; color: #64748b; margin-bottom: 6px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .g-phase-mini .phase-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+        .g-phase-mini .phase-thumbs img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; border: 1px solid #f1f5f9; }
+        .g-card-bottom { display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-top: 1px solid #f8fafc; }
+        .g-card-bottom .g-meta { font-size: 11px; color: #94a3b8; }
+        .g-card-bottom .g-meta i { margin-right: 4px; }
+        .g-card-bottom .g-actions { display: flex; gap: 6px; }
+        .g-card-bottom .g-actions button { padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: 'Inter', sans-serif; }
+        .g-card-bottom .btn-word { background: #0f172a; color: #fff; border: none; }
+        .g-card-bottom .btn-word:hover { background: #1e293b; }
+        .g-card-bottom .btn-delete { background: transparent; color: #94a3b8; border: 1px solid #e2e8f0; }
+        .g-card-bottom .btn-delete:hover { color: #ef4444; border-color: #ef4444; background: #fef2f2; }
+
+        .main-footer { background: #0f172a; padding: 20px 0; margin-top: 40px; border-top: 2px solid #f0c929; }
+        .main-footer .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .main-footer p { color: #64748b; font-size: 12px; }
+        .main-footer p strong { color: #f0c929; }
+        .main-footer .footer-links { display: flex; gap: 16px; }
+        .main-footer .footer-links a { color: #64748b; font-size: 12px; text-decoration: none; transition: color 0.2s ease; }
+        .main-footer .footer-links a:hover { color: #f0c929; }
+
+        @media (max-width: 1024px) { .layout-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+            .top-bar .container { flex-direction: column; gap: 4px; }
+            .top-bar .company-meta { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .main-header .container { flex-direction: column; gap: 12px; }
+            .header-badge { display: none; }
+            .form-row { grid-template-columns: 1fr; }
+            .fotos-grid { grid-template-columns: repeat(3, 1fr); }
+            .g-card-phases { grid-template-columns: 1fr; }
+            .btn-row { flex-direction: column; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+            .gallery-header { flex-direction: column; text-align: center; }
+            .g-card-top { flex-direction: column; gap: 4px; }
+            .g-card-top .g-date { text-align: left; }
+            .g-card-bottom { flex-direction: column; gap: 8px; }
+        }
+        @media (max-width: 480px) {
+            .page-title h2 { font-size: 20px; }
+            .fotos-grid { grid-template-columns: repeat(3, 1fr); }
+            .sidebar-stats { grid-template-columns: 1fr 1fr; }
+            .gallery-actions { width: 100%; }
+            .gallery-actions button { flex: 1; text-align: center; font-size: 11px; padding: 6px 10px; }
+            .main-footer .container { flex-direction: column; text-align: center; }
+        }
+        .login-overlay { position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.9);display:flex;align-items:center;justify-content:center;z-index:9999; }
+        .login-box { background:#fff;border-radius:20px;padding:40px;width:380px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,0.3); }
+        .login-box .login-logo { text-align:center;margin-bottom:24px; }
+        .login-box .login-logo h2 { font-size:22px;font-weight:800;color:#0f172a; }
+        .login-box .login-logo h2 span { color:#f0c929; }
+        .login-box .login-logo p { font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:2px;margin-top:2px; }
+        .login-form .form-group { margin-bottom:16px; }
+        .login-form .form-group label { display:block;font-size:12px;font-weight:600;color:#374151;margin-bottom:4px; }
+        .login-form .form-group input { width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;color:#1e293b;transition:all 0.2s;background:#fafbfc;box-sizing:border-box; }
+        .login-form .form-group input:focus { outline:none;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,0.08);background:#fff; }
+        .login-form .login-btn { width:100%;padding:12px;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s; }
+        .login-form .login-btn:hover { transform:translateY(-1px);box-shadow:0 4px 14px rgba(37,99,235,0.25); }
+        .login-form .login-error { color:#ef4444;font-size:12px;margin-top:8px;display:none; }
+        .login-form .login-register-link { text-align:center;margin-top:12px;font-size:12px;color:#64748b; }
+        .login-form .login-register-link a { color:#2563eb;text-decoration:none;cursor:pointer; }
+        .login-form .login-register-link a:hover { text-decoration:underline; }
+        .login-form .role-select { display:flex;gap:8px;margin-bottom:16px; }
+        .login-form .role-select button { flex:1;padding:10px;border:2px solid #e2e8f0;border-radius:10px;background:#fafbfc;font-size:12px;font-weight:600;font-family:'Inter',sans-serif;color:#64748b;cursor:pointer;transition:all 0.2s; }
+        .login-form .role-select button.active { border-color:#2563eb;background:#f0f7ff;color:#2563eb; }
+        .login-form .role-select button:hover { border-color:#94a3b8; }
+        .login-form .register-back { text-align:center;margin-top:12px;font-size:12px; }
+        .login-form .register-back a { color:#64748b;text-decoration:none;cursor:pointer; }
+        .login-form .register-back a:hover { text-decoration:underline; }
+        .user-bar { display:flex;align-items:center;gap:10px; }
+        .user-bar .user-info { font-size:11px;color:#94a3b8;text-align:right; }
+        .user-bar .user-info strong { display:block;color:#fff;font-size:12px; }
+        .user-bar .logout-btn { background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;padding:6px 14px;border-radius:8px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s; }
+        .user-bar .logout-btn:hover { background:rgba(255,255,255,0.2); }
+        body.logged-in .login-overlay { display:none; }
+    </style>
+</head>
+<body>
+
+<div class="login-overlay" id="loginOverlay">
+    <div class="login-box" id="loginBox">
+        <div class="login-logo">
+            <h2>Z&amp;R <span>NEW TECHNOLOGY</span> S.A.C.</h2>
+            <p>Registro de Mantenimiento HVAC</p>
+        </div>
+        <div class="login-form" id="loginFormView">
+            <div class="form-group">
+                <label>Usuario</label>
+                <input type="text" id="loginUser" placeholder="Ingrese su usuario">
+            </div>
+            <div class="form-group">
+                <label>CONTRASE&Ntilde;A</label>
+                <input type="password" id="loginPass" placeholder="Ingrese su contrase&ntilde;a">
+            </div>
+            <button class="login-btn" id="loginBtn">INICIAR SESION</button>
+            <div class="login-error" id="loginError">Usuario o contrase&ntilde;a incorrectos</div>
+            <div class="login-register-link"><a id="showRegisterLink">Crear nuevo usuario</a></div>
+        </div>
+        <div class="login-form" id="registerFormView" style="display:none;">
+            <div class="form-group">
+                <label>Nuevo usuario</label>
+                <input type="text" id="regUser" placeholder="Ingrese nombre de usuario">
+            </div>
+            <div class="form-group">
+                <label>CONTRASE&Ntilde;A</label>
+                <input type="password" id="regPass" placeholder="Ingrese contrase&ntilde;a">
+            </div>
+            <div class="form-group">
+                <label>CONFIRMAR CONTRASE&Ntilde;A</label>
+                <input type="password" id="regPass2" placeholder="Confirme contrase&ntilde;a">
+            </div>
+            <div class="role-select">
+                <button id="roleAdmin" class="active">Admin</button>
+                <button id="RoleTecnico">TECNICO</button>
+            </div>
+            <button class="login-btn" id="registerBtn">REGISTRARSE</button>
+            <div class="login-error" id="regError">Complete todos los campos</div>
+            <div class="register-back"><a id="showLoginLink">Volver a inicio de sesi&oacute;n</a></div>
+        </div>
+    </div>
+</div>
+
+<div class="top-bar">
+    <div class="container">
+        <div class="company-meta">
+            <span><i class="fas fa-phone-alt"></i> 927 487 395 / 936 480 114</span>
+            <span><i class="fas fa-envelope"></i> erikablaszrnewtechnology@gmail.com</span>
+            <span><i class="fas fa-map-marker-alt"></i> San Juan de Lurigancho - Lima</span>
+        </div>
+        <div class="company-meta">
+            <span><i class="fas fa-certificate"></i> ISO 9001 - 14001 - 45001 - 37001</span>
+        </div>
+    </div>
+</div>
+
+<div class="main-header">
+    <div class="container">
+        <div class="brand">
+                        <div class="brand-logo"><img id="company-logo-img" src="logo.jpeg" alt="Z&R"></div>
+            <div class="brand-text">
+                <h1>Z&amp;R <span>NEW TECHNOLOGY</span> S.A.C.</h1>
+                <p>Especialistas en Seguridad y Mantenimiento Industrial</p>
+            </div>
+        </div>
+        <div class="user-bar" id="userBar">
+            <div class="user-info">
+                <strong id="displayName">Usuario</strong>
+                <small id="displayRole">Rol</small>
+            </div>
+            <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Salir</button>
+        </div>
+    </div>
+</div>
+
+<div class="container-main">
+    <div class="page-title">
+        <div class="breadcrumb">
+            <a href="#">Z&R NEW TECHNOLOGY</a>
+            <span>/</span>
+            <span>Registro de Mantenimiento HVAC</span>
+        </div>
+        <h2>Registro de Mantenimiento <span>HVAC</span></h2>
+        <p>Complete los datos del equipo y agregue 3 fotograf&iacute;as por cada etapa del mantenimiento.</p>
+    </div>
+
+    <div class="layout-grid">
+        <div>
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-plus-circle" style="color:#2563eb; margin-right:8px;"></i> Nuevo Registro</h3>
+                    <span class="card-badge"><i class="fas fa-asterisk" style="color:#ef4444; font-size:8px;"></i> Campos obligatorios</span>
+                </div>
+                <div class="card-body">
+                    <form id="hvacForm">
+                        <p class="form-section-title"><i class="fas fa-building"></i> Datos del Equipo</p>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Sala El&eacute;ctrica <span class="required">*</span></label>
+                                <div class="input-icon-wrap">
+                                    <i class="fas fa-bolt"></i>
+                                    <input type="text" id="sala" placeholder="Ej: Sala El&eacute;ctrica Norte" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>N&deg; de Equipo HVAC <span class="required">*</span></label>
+                                <div class="input-icon-wrap">
+                                    <i class="fas fa-wind"></i>
+                                    <input type="text" id="equipo" placeholder="Ej: HVAC-001, UMA-02" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="form-section-title" style="margin-top:4px;"><i class="fas fa-camera"></i> Registro Fotogr&aacute;fico por Etapa</p>
+
+                        <div class="phase-blocks">
+                            <div class="phase-block antes" id="block-antes">
+                                <div class="phase-block-header" onclick="document.getElementById('block-antes').classList.toggle('collapsed')">
+                                    <div class="phase-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                                    <div class="phase-info"><h4>Antes del Mantenimiento</h4><p>Estado inicial del equipo</p></div>
+                                    <i class="fas fa-chevron-down phase-toggle"></i>
+                                </div>
+                                <div class="phase-body">
+                                    <div class="form-group">
+                                        <label>Descripci&oacute;n del estado inicial</label>
+                                        <textarea id="desc-antes" placeholder="Describe c&oacute;mo se encontr&oacute; el equipo, problemas visibles..." rows="2"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Fotograf&iacute;as <span class="required">*</span></label>
+                                        <div class="fotos-grid">
+                                            <div class="foto-slot"><div class="upload-box"><i class="fas fa-plus"></i><span class="slot-label">Foto 1</span><span class="slot-status">Agregar</span></div><input type="file" id="in-antes-0" accept="image/*"><div class="foto-preview"></div></div>
+                                            <div class="foto-slot"><div class="upload-box"><i class="fas fa-plus"></i><span class="slot-label">Foto 2</span><span class="slot-status">Agregar</span></div><input type="file" id="in-antes-1" accept="image/*"><div class="foto-preview"></div></div>
+                                            <div class="foto-slot"><div class="upload-box"><i class="fas fa-plus"></i><span class="slot-label">Foto 3</span><span class="slot-status">Agregar</span></div><input type="file" id="in-antes-2" accept="image/*"><div class="foto-preview"></div></div>
+                                        </div>
+                                        <div class="phase-progress" id="pr-antes"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="phase-block durante" id="block-durante">
+                                <div class="phase-block-header" onclick="document.getElementById('block-durante').classList.toggle('collapsed')">
+                                    <div class="phase-icon"><i class="fas fa-cogs"></i></div>
+                                    <div class="phase-info"><h4>Durante el Mantenimiento</h4><p>Proceso de intervenci&oacute;n</p></div>
+                                    <i class="fas fa-chevron-down phase-toggle"></i>
+                                </div>
+                                <div class="phase-body">
+                                    <div class="form-group">
+                                        <label>Descripci&oacute;n del proceso</label>
+                                        <textarea id="desc-durante" placeholder="Describe las tareas realizadas, repuestos utilizados..." rows="2"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Fotograf&iacute;as <span class="required">*</span></label>
+                                        <div class="fotos-grid">
+                                            <div class="foto-slot"><div class="upload-box"><i class="fas fa-plus"></i><span class="slot-label">Foto 1</span><span class="slot-status">Agregar</span></div><input type="file" id="in-durante-0" accept="image/*"><div class="foto-preview"></div></div>
+                                            <div class="foto-slot"><div class="upload-box"><i class="fas fa-plus"></i><span class="slot-label">Foto 2</span><span class="slot-status">Agregar</span></div><input type="file" id="in-durante-1" accept="image/*"><div class="foto-preview"></div></div>
+                                            <div class="foto-slot"><div class="upload-box"><i class="fas fa-plus"></i><span class="slot-label">Foto 3</span><span class="slot-status">Agregar</span></div><input type="file" id="in-durante-2" accept="image/*"><div class="foto-preview"></div></div>
+                                        </div>
+                                        <div class="phase-progress" id="pr-durante"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="phase-block despues" id="block-despues">
+                                <div class="phase-block-header" onclick="document.getElementById('block-despues').classList.toggle('collapsed')">
+                                    <div class="phase-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="phase-info"><h4>Despu&eacute;s del Mantenimiento</h4><p>Resultado final del servicio</p></div>
+                                    <i class="fas fa-chevron-down phase-toggle"></i>
+                                </div>
+                                <div class="phase-body">
+                                    <div class="form-group">
+                                        <label>Descripci&oacute;n del resultado</label>
+                                        <textarea id="desc-despues" placeholder="Describe el estado final del equipo, mejoras realizadas..." rows="2"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Fotograf&iacute;as <span class="required">*</span></label>
+                                        <div class="fotos-grid">
+                                            <div class="foto-slot"><div class="upload-box"><i class="fas fa-plus"></i><span class="slot-label">Foto 1</span><span class="slot-status">Agregar</span></div><input type="file" id="in-despues-0" accept="image/*"><div class="foto-preview"></div></div>
+                                            <div class="foto-slot"><div class="upload-box"><i class="fas fa-plus"></i><span class="slot-label">Foto 2</span><span class="slot-status">Agregar</span></div><input type="file" id="in-despues-1" accept="image/*"><div class="foto-preview"></div></div>
+                                            <div class="foto-slot"><div class="upload-box"><i class="fas fa-plus"></i><span class="slot-label">Foto 3</span><span class="slot-status">Agregar</span></div><input type="file" id="in-despues-2" accept="image/*"><div class="foto-preview"></div></div>
+                                        </div>
+                                        <div class="phase-progress" id="pr-despues"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Condici&oacute;n del Equipo</label>
+                                <div class="input-icon-wrap"><i class="fas fa-clipboard-check"></i><input type="text" id="condicion" placeholder="Condici&oacute;n del equipo"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Intervenci&oacute;n</label>
+                                <div class="input-icon-wrap"><i class="fas fa-calendar"></i><input type="date" id="fecha"></div>
+                            </div>
+                        </div>
+
+                        <div class="btn-row">
+                            <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Guardar Registro</button>
+                            <button type="button" class="btn-secondary" onclick="HVACApp.limpiar()"><i class="fas fa-eraser"></i> Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="sidebar-stats" id="statsPanel">
+                <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-clipboard-list"></i></div><div class="stat-num" id="stat-total">0</div><div class="stat-label">Registros</div></div>
+                <div class="stat-card"><div class="stat-icon amber"><i class="fas fa-images"></i></div><div class="stat-num" id="stat-fotos">0</div><div class="stat-label">Fotos</div></div>
+                <div class="stat-card"><div class="stat-icon green"><i class="fas fa-wind"></i></div><div class="stat-num" id="stat-equipos">0</div><div class="stat-label">Equipos</div></div>
+                <div class="stat-card"><div class="stat-icon red"><i class="fas fa-hard-hat"></i></div><div class="stat-num" id="stat-hoy">0</div><div class="stat-label">Hoy</div></div>
+            </div>
+
+            <div class="sidebar-card">
+                <h4><i class="fas fa-users" style="color:#0f172a; margin-right:6px;"></i> Personal Responsable</h4>
+                <ul class="recent-list">
+                    <li style="padding:6px 0;"><strong style="font-size:12px;">Erika Beatris Blas Beltran</strong><br><span style="font-size:11px;color:#667085;">Gerenta General</span></li>
+                    <li style="padding:6px 0;border-top:1px solid #eee;"><strong style="font-size:12px;">Antony Davila Sanchez</strong><br><span style="font-size:11px;color:#667085;">Coordinador de Proyecto</span></li>
+                    <li style="padding:6px 0;border-top:1px solid #eee;"><strong style="font-size:12px;">Victoria Sosa Zapata</strong><br><span style="font-size:11px;color:#667085;">Ingeniera de SOOMA</span></li>
+                    <li style="padding:6px 0;border-top:1px solid #eee;"><strong style="font-size:12px;">Elvis Eliseo Garriazo Casafranca</strong><br><span style="font-size:11px;color:#667085;">Supervisor de Proyecto</span></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-card">
+                <h4><i class="fas fa-clock" style="color:#2563eb; margin-right:6px;"></i> &Uacute;ltimos Registros</h4>
+                <ul class="recent-list" id="recentList"><li style="color:#94a3b8;font-size:13px;justify-content:center;padding:20px 0;">Cargando...</li></ul>
+            </div>
+
+            <div class="sidebar-card">
+                <div class="gallery-header" style="margin-bottom:0;">
+                    <h4 style="margin:0;"><i class="fas fa-history" style="color:#2563eb; margin-right:6px;"></i> Historial</h4>
+                    <div class="gallery-actions">
+                        <button class="btn-report" id="reportAllBtn" style="font-size:11px;padding:6px 12px;"><i class="fas fa-file-word"></i> Word</button>
+                        <button class="btn-export" id="exportBtn" style="font-size:11px;padding:6px 12px;"><i class="fas fa-download"></i> CSV</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="galleryContainer">
+                <div class="gallery-empty" id="galleryEmpty"><i class="fas fa-images"></i><h3>A&uacute;n no hay registros</h3><p>Complete el formulario para agregar el primer registro.</p></div>
+                <div class="gallery-grid" id="galleryGrid" style="display:none;"></div>
+            </div>
+
+            <div style="margin-top:12px; text-align:right;">
+                <button class="btn-delete-all" id="deleteAllBtn"><i class="fas fa-trash-alt"></i> Eliminar Todos</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-footer">
+    <div class="container">
+        <p>&copy; 2024 <strong>Z&amp;R NEW TECHNOLOGY S.A.C.</strong> &bull; erikablaszrnewtechnology@gmail.com &bull; Todos los derechos reservados.</p>
+        <div class="footer-links"><a href="#">Pol&iacute;tica de privacidad</a><a href="#">T&eacute;rminos de uso</a><a href="#">Contacto</a></div>
+    </div>
+</div>
+
+<script>
+var HVACApp = (function() {
+    'use strict';
+
+    var DB_NAME = 'HVAC_Registros';
+    var DB_VERSION = 1;
+    var STORE_NAME = 'registros';
+
+    var currentUser = null;
+    function getUsers() { return JSON.parse(localStorage.getItem('hvac_users')||'[]'); }
+    function saveUsers(u) { localStorage.setItem('hvac_users',JSON.stringify(u)); }
+    function getSession() { return JSON.parse(localStorage.getItem('hvac_session')||'null'); }
+    function saveSession(u) { localStorage.setItem('hvac_session',JSON.stringify(u)); }
+    function clearSession() { localStorage.removeItem('hvac_session'); }
+
+    function loginUser(username, password) {
+        var users = getUsers();
+        for (var i=0;i<users.length;i++) {
+            if (users[i].username===username && users[i].password===password) {
+                currentUser = users[i];
+                saveSession(users[i]);
+                updateUserBar();
+                document.body.classList.add('logged-in');
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function registerUser(username, password, role) {
+        var users = getUsers();
+        for (var i=0;i<users.length;i++) { if (users[i].username===username) return false; }
+        var newUser = { username:username, password:password, role:role || 'tecnico' };
+        users.push(newUser);
+        saveUsers(users);
+        return true;
+    }
+
+    function logoutUser() {
+        currentUser = null;
+        clearSession();
+        document.body.classList.remove('logged-in');
+        showLoginView();
+    }
+
+    function updateUserBar() {
+        if (!currentUser) return;
+        document.getElementById('displayName').textContent = currentUser.username;
+        document.getElementById('displayRole').textContent = currentUser.role==='admin' ? 'ADMIN' : 'TECNICO';
+        var delBtn = document.getElementById('deleteAllBtn');
+        if (delBtn) delBtn.style.display = currentUser.role==='admin' ? '' : 'none';
+    }
+
+    function showLoginView() { document.getElementById('loginFormView').style.display=''; document.getElementById('registerFormView').style.display='none'; document.getElementById('loginError').style.display='none'; document.getElementById('loginUser').value=''; document.getElementById('loginPass').value=''; }
+    function showRegisterView() { document.getElementById('loginFormView').style.display='none'; document.getElementById('registerFormView').style.display=''; document.getElementById('regError').style.display='none'; document.getElementById('regUser').value=''; document.getElementById('regPass').value=''; document.getElementById('regPass2').value=''; }
+
+    function isAdmin() { return currentUser && currentUser.role==='admin'; }
+    var db = null;
+
+    function abrirDB(callback) {
+        if (db) { callback(null); return; }
+        var req = indexedDB.open(DB_NAME, DB_VERSION);
+        req.onupgradeneeded = function(e) {
+            var d = e.target.result;
+            if (!d.objectStoreNames.contains(STORE_NAME)) {
+                var store = d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+                store.createIndex('fecha', 'fecha', { unique: false });
+            }
+        };
+        req.onsuccess = function(e) {
+            db = e.target.result;
+            callback(null);
+        };
+        req.onerror = function() {
+            callback('Error al abrir la base de datos');
+        };
+    }
+
+    function guardarRegistro(registro, callback) {
+        abrirDB(function(err) {
+            if (err) { callback(err); return; }
+            var tx = db.transaction(STORE_NAME, 'readwrite');
+            var store = tx.objectStore(STORE_NAME);
+            store.put(registro);
+            tx.oncomplete = function() { callback(null); };
+            tx.onerror = function() { callback('Error al guardar el registro'); };
+        });
+    }
+
+    function obtenerRegistros(callback) {
+        abrirDB(function(err) {
+            if (err) { callback(err, []); return; }
+            var tx = db.transaction(STORE_NAME, 'readonly');
+            var store = tx.objectStore(STORE_NAME);
+            var req = store.getAll();
+            req.onsuccess = function() { callback(null, req.result || []); };
+            req.onerror = function() { callback('Error al obtener registros', []); };
+        });
+    }
+
+    function eliminarRegistro(id, callback) {
+        abrirDB(function(err) {
+            if (err) { callback(err); return; }
+            var tx = db.transaction(STORE_NAME, 'readwrite');
+            var store = tx.objectStore(STORE_NAME);
+            store.delete(id);
+            tx.oncomplete = function() { callback(null); };
+            tx.onerror = function() { callback('Error al eliminar'); };
+        });
+    }
+
+    function eliminarTodos(callback) {
+        abrirDB(function(err) {
+            if (err) { callback(err); return; }
+            var tx = db.transaction(STORE_NAME, 'readwrite');
+            var store = tx.objectStore(STORE_NAME);
+            store.clear();
+            tx.oncomplete = function() { callback(null); };
+            tx.onerror = function() { callback('Error al eliminar'); };
+        });
+    }
+
+    function formatFecha(d) {
+        var date = new Date(d);
+        return String(date.getDate()).padStart(2,'0') + '/' + String(date.getMonth()+1).padStart(2,'0') + '/' + date.getFullYear();
+    }
+
+    function todayStr() {
+        var d = new Date();
+        return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    }
+
+    var phaseNames = ['antes','durante','despues'];
+    var fotosData = { antes: ['','',''], durante: ['','',''], despues: ['','',''] };
+
+    function initFotoSlots() {
+        var phases = ['antes','durante','despues'];
+        phases.forEach(function(ph) {
+            for (var i = 0; i < 3; i++) {
+                (function(phase, idx) {
+                    var input = document.getElementById('in-' + phase + '-' + idx);
+                    if (!input) return;
+                    var uploadBox = input.previousElementSibling;
+                    if (uploadBox) {
+                        uploadBox.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            input.click();
+                        });
+                    }
+                    input.addEventListener('change', function() {
+                        if (this.files && this.files[0]) {
+                            var file = this.files[0];
+                            var slot = input.parentElement;
+                            var reader = new FileReader();
+                            reader.onload = function(e) {
+                                fotosData[phase][idx] = e.target.result;
+                                mostrarPreview(slot, phase, idx);
+                            };
+                            reader.onerror = function() {};
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                })(ph, i);
+            }
+        });
+    }
+
+    function mostrarPreview(slot, phase, idx) {
+        if (!slot) return;
+        var uploadBox = slot.children[0];
+        var inputFile = slot.children[1];
+        var preview = slot.children[2];
+        if (!uploadBox || !preview) return;
+        uploadBox.style.display = 'none';
+        preview.style.display = 'block';
+        var status = uploadBox.querySelector('.slot-status');
+        if (status) status.textContent = 'Cargada';
+        preview.innerHTML = '<img src="' + fotosData[phase][idx] + '" alt="Foto" style="width:100%;height:100%;object-fit:cover;display:block;">' +
+            '<button type="button" class="remove-foto" data-phase="' + phase + '" data-idx="' + idx + '" style="position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;border:none;background:rgba(15,23,42,0.6);color:#fff;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5;opacity:0;transition:opacity 0.2s;"><i class="fas fa-times"></i></button>';
+        var rmBtn = preview.querySelector('.remove-foto');
+        if (rmBtn) {
+            preview.addEventListener('mouseenter', function(){rmBtn.style.opacity='1';});
+            preview.addEventListener('mouseleave', function(){rmBtn.style.opacity='0';});
+            rmBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                fotosData[phase][idx] = '';
+                uploadBox.style.display = 'flex';
+                preview.style.display = 'none';
+                preview.innerHTML = '';
+                if (status) status.textContent = 'Agregar';
+                if (inputFile) inputFile.value = '';
+                actualizarProgreso(phase);
+            });
+        }
+        actualizarProgreso(phase);
+    }
+
+    function actualizarVista(phase, idx) {
+        var input = document.getElementById('in-' + phase + '-' + idx);
+        if (!input) return;
+        var slot = input.parentElement;
+        if (!slot) return;
+        var preview = slot.children[2];
+        if (!preview) return;
+        var img = preview.querySelector('img');
+        if (img) img.src = fotosData[phase][idx];
+    }
+
+    function actualizarProgreso(phase) {
+        var dots = document.querySelectorAll('#pr-' + phase + ' .dot');
+        if (!dots.length) return;
+        for (var i = 0; i < 3; i++) {
+            if (fotosData[phase][i]) { dots[i].classList.add('filled'); }
+            else { dots[i].classList.remove('filled'); }
+        }
+    }
+
+    function validarFotos() {
+        for (var p = 0; p < 3; p++) {
+            for (var i = 0; i < 3; i++) {
+                if (!fotosData[phaseNames[p]][i]) return false;
+            }
+        }
+        return true;
+    }
+
+    function renderizar(registros) {
+        var grid = document.getElementById('galleryGrid');
+        var empty = document.getElementById('galleryEmpty');
+        var totalFotos = 0;
+        for (var ri = 0; ri < registros.length; ri++) {
+            var rf = registros[ri].fotos || {};
+            for (var pi = 0; pi < 3; pi++) {
+                var arr = rf[phaseNames[pi]] || [];
+                totalFotos += arr.filter(function(x){return x;}).length;
+            }
+        }
+        var equiposUnicos = {};
+        for (var ei = 0; ei < registros.length; ei++) equiposUnicos[registros[ei].equipo] = true;
+        var hoy = new Date().toDateString();
+        var registrosHoy = 0;
+        for (var hi = 0; hi < registros.length; hi++) {
+            if (new Date(registros[hi].fecha).toDateString() === hoy) registrosHoy++;
+        }
+
+        var st = document.getElementById('stat-total');
+        var sf = document.getElementById('stat-fotos');
+        var se = document.getElementById('stat-equipos');
+        var sh = document.getElementById('stat-hoy');
+        if (st) st.textContent = registros.length;
+        if (sf) sf.textContent = totalFotos;
+        if (se) se.textContent = Object.keys(equiposUnicos).length;
+        if (sh) sh.textContent = registrosHoy;
+
+        var list = document.getElementById('recentList');
+        if (list) {
+            if (registros.length === 0) {
+                list.innerHTML = '<li style="color:#94a3b8;font-size:13px;justify-content:center;padding:20px 0;">Sin registros</li>';
+            } else {
+                var recientes = registros.slice().reverse().slice(0, 5);
+                var lh = '';
+                for (var li = 0; li < recientes.length; li++) {
+                    lh += '<li><span class="recent-dot" style="background:#10b981;"></span>' +
+                        '<div class="recent-info"><strong>' + recientes[li].equipo + '</strong><small>' + recientes[li].sala + '</small></div>' +
+                        '<span class="recent-equipo">' + formatFecha(recientes[li].fecha) + '</span></li>';
+                }
+                list.innerHTML = lh;
+            }
+        }
+
+        if (registros.length === 0) {
+            if (empty) empty.style.display = 'block';
+            if (grid) grid.style.display = 'none';
+            return;
+        }
+        if (empty) empty.style.display = 'none';
+        if (grid) grid.style.display = 'grid';
+
+        var html = '';
+        for (var gi = registros.length - 1; gi >= 0; gi--) {
+            var r = registros[gi];
+            var f = r.fotos || {};
+            var descs = r.descripciones || {};
+
+            var mp = function(phase) {
+                var fotos = (f[phase] || []).filter(function(x){return x;});
+                var fh = fotos.length > 0
+                    ? '<div class="phase-thumbs">' + fotos.map(function(fi){return '<img src="' + fi + '" alt="">';}).join('') + '</div>'
+                    : '<p style="font-size:10px;color:#cbd5e1;">Sin fotos</p>';
+                return '<div class="g-phase-mini"><div class="phase-label ' + phase + '">' + phase.toUpperCase() + '</div>' +
+                    '<div class="phase-desc">' + (descs[phase] || '') + '</div>' + fh + '</div>';
+            };
+
+            var tfc = 0;
+            for (var pi2 = 0; pi2 < 3; pi2++) {
+                var arr2 = f[phaseNames[pi2]] || [];
+                tfc += arr2.filter(function(x){return x;}).length;
+            }
+
+            html += '<div class="g-card" data-id="' + r.id + '">' +
+                '<div class="g-card-top"><div class="g-info"><h3>' + r.equipo + '</h3><div class="g-sala"><i class="fas fa-bolt"></i> ' + (r.sala||'') + '</div></div>' +
+                '<div class="g-date"><i class="far fa-calendar-alt"></i> ' + formatFecha(r.fecha) + '</div></div>' +
+                '<div class="g-card-phases">' + mp('antes') + mp('durante') + mp('despues') + '</div>' +
+                '<div class="g-card-bottom"><div class="g-meta"><i class="fas fa-clipboard-check"></i> ' + (r.condicion||r.tecnico||'') + ' &nbsp; <i class="fas fa-images"></i> ' + tfc + ' fotos</div>' +
+                '<div class="g-actions"><button class="btn-word" data-id="' + r.id + '"><i class="fas fa-file-word"></i> Word</button>' +
+                '<button class="btn-delete" data-id="' + r.id + '"><i class="fas fa-trash-alt"></i></button></div></div></div>';
+        }
+        if (grid) grid.innerHTML = html;
+
+        document.querySelectorAll('.btn-word').forEach(function(b) {
+            b.addEventListener('click', function() {
+                var id = Number(this.dataset.id);
+                obtenerRegistros(function(err, regs) {
+                    if (err) return;
+                    var encontrado = null;
+                    for (var i = 0; i < regs.length; i++) {
+                        if (regs[i].id === id) { encontrado = regs[i]; break; }
+                    }
+                    if (encontrado) descargarWord([encontrado], 'Registro - ' + encontrado.equipo);
+                });
+            });
+        });
+
+        document.querySelectorAll('.btn-delete').forEach(function(b) {
+            b.addEventListener('click', function() {
+                var id = Number(this.dataset.id);
+                if (confirm('\u00bfEliminar este registro?')) {
+                    eliminarRegistro(id, function() { cargarYRenderizar(); });
+                }
+            });
+        });
+    }
+
+    function cargarYRenderizar() {
+        obtenerRegistros(function(err, registros) {
+            if (err) { alert('Error al cargar datos'); return; }
+            renderizar(registros);
+        });
+    }
+
+    var companyLogoBase64 = '';
+
+    (function preloadLogo() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'logo.jpeg', true);
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+            if (xhr.status === 0 || xhr.status === 200) {
+                var reader = new FileReader();
+                reader.onloadend = function() { companyLogoBase64 = reader.result; };
+                reader.readAsDataURL(xhr.response);
+            }
+        };
+        xhr.send();
+    })();
+
+    function getLogoBase64() {
+        if (companyLogoBase64) return companyLogoBase64;
+        var img = document.getElementById('company-logo-img');
+        if (!img || !img.naturalWidth) return '';
+        try {
+            var c = document.createElement('canvas');
+            c.width = img.naturalWidth;
+            c.height = img.naturalHeight;
+            c.getContext('2d').drawImage(img, 0, 0);
+            return c.toDataURL('image/jpeg');
+        } catch(e) { return ''; }
+    }
+
+    function descargarWord(registros, titulo) {
+        if (!registros || registros.length === 0) { alert('No hay registros'); return; }
+        var now = new Date();
+        var meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre'];
+        var fechaActual = String(now.getDate()) + ' de ' + meses[now.getMonth()] + ' del ' + now.getFullYear();
+        var horaActual = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+        var logoData = getLogoBase64();
+
+        var totalFotos = 0;
+        for (var ri = 0; ri < registros.length; ri++) {
+            var rf = registros[ri].fotos || {};
+            totalFotos += (rf.antes||[]).filter(function(x){return x;}).length;
+            totalFotos += (rf.durante||[]).filter(function(x){return x;}).length;
+            totalFotos += (rf.despues||[]).filter(function(x){return x;}).length;
+        }
+
+        var sa={}; for(var si=0;si<registros.length;si++) sa[registros[si].sala]=true;
+        var eq={}; for(var ei=0;ei<registros.length;ei++) eq[registros[ei].equipo]=true;
+
+        function esc(t) { return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+        function fotosHtml(arr) {
+            if (!arr) return '';
+            var filt = arr.filter(function(x){return x;});
+            if (!filt.length) return '';
+            var h = '<table cellpadding="0" cellspacing="0" style="width:16cm;margin:0 auto;"><tr>';
+            for (var fi = 0; fi < filt.length; fi++) {
+                h += '<td style="text-align:center;vertical-align:top;width:5.3cm;padding:2px;">' +
+                    '<img src="' + filt[fi] + '" width="189" height="227" style="width:5cm;height:6cm;border:1px solid #ccc;border-radius:2px;">' +
+                    '</td>';
+            }
+            return h + '</tr></table>';
+        }
+
+        function eqBoxHtml(r, idx) {
+            var f = r.fotos || {}, d = r.descripciones || {};
+            var h = '<div style="margin-bottom:20px;page-break-inside:avoid;">' +
+                '<table cellpadding="0" cellspacing="0" style="width:100%;border:1px solid #ccc;border-collapse:collapse;">' +
+                '<tr><td colspan="2" style="background:#1e293b;padding:10px 14px;border-bottom:2px solid #f0c929;">' +
+                '<div style="color:#fff;font-size:15px;font-weight:700;">' + esc(r.equipo) + '</div></td></tr>' +
+                '<tr><td style="padding:8px 14px;background:#f4f6f8;font-size:12px;color:#555;width:50%;"><b>Sala:</b> ' + esc(r.sala) + '</td>' +
+                '<td style="padding:8px 14px;background:#f4f6f8;font-size:12px;color:#555;width:50%;text-align:right;"><b>Condici\u00f3n:</b> ' + esc(r.condicion||r.tecnico||'') + ' &nbsp;|&nbsp; ' + formatFecha(r.fecha) + '</td></tr>';
+
+            var fases = [
+                {key:'antes', color:'#b91c1c', label:'ANTES'},
+                {key:'durante', color:'#b45309', label:'DURANTE'},
+                {key:'despues', color:'#047857', label:'DESPU\u00c9S'}
+            ];
+            for (var fi2 = 0; fi2 < fases.length; fi2++) {
+                var fase = fases[fi2];
+                h += '<tr><td colspan="2" style="padding:10px 14px;border-top:1px solid #eee;">' +
+                    '<div style="border-left:4px solid ' + fase.color + ';padding:8px 12px;">' +
+                    '<div style="font-size:11px;font-weight:700;color:' + fase.color + ';margin-bottom:4px;">' + fase.label + '</div>' +
+                    '<div style="font-size:12px;color:#444;margin-bottom:6px;">' + esc(d[fase.key]) + '</div>' +
+                    fotosHtml(f[fase.key]) +
+                    '</div></td></tr>';
+            }
+
+            return h + '</table></div>';
+        }
+
+        var salasMap = {};
+        for (var ci = 0; ci < registros.length; ci++) {
+            var s = (registros[ci].sala||'').trim().replace(/\s+/g,' ') || 'Sin sala';
+            if (!salasMap[s]) salasMap[s] = [];
+            salasMap[s].push(registros[ci]);
+        }
+        var salasKeys = [];
+        for (var sk in salasMap) { if (salasMap.hasOwnProperty(sk)) salasKeys.push(sk); }
+        salasKeys.sort(function(a,b){ var x=a.toLowerCase(),y=b.toLowerCase(); return x<y?-1:x>y?1:0; });
+        var equiposHtml = '';
+        for (var si2 = 0; si2 < salasKeys.length; si2++) {
+            var salaName = salasKeys[si2];
+            var salaRegs = salasMap[salaName];
+            salaRegs.sort(function(a,b){ var x=(a.equipo||'').toLowerCase(),y=(b.equipo||'').toLowerCase(); return x<y?-1:x>y?1:0; });
+            equiposHtml += '<div style="margin-bottom:28px;page-break-inside:avoid;">' +
+                '<div style="background:#0f172a;color:#fff;padding:10px 16px;border-radius:6px 6px 0 0;border-bottom:3px solid #f0c929;">' +
+                '<div style="font-size:14px;font-weight:700;">SALA: ' + esc(salaName) + '</div>' +
+                '<div style="font-size:11px;color:#94a3b8;">Equipos: ' + salaRegs.length + '</div></div>';
+            for (var cj = 0; cj < salaRegs.length; cj++) {
+                equiposHtml += eqBoxHtml(salaRegs[cj], cj);
+            }
+            equiposHtml += '</div><div style="border-top:2px solid #e0e0e0;margin:8px 0;"></div>';
+        }
+
+        var tl = titulo.replace(/[^a-zA-Z0-9\u00E0-\u00FC\s\-_]/g,'').replace(/\s+/g,' ').trim().substring(0,80);
+        var logoHtml = logoData ? '<div style="text-align:center;margin-bottom:6px;"><img src="' + logoData + '" style="height:55px;width:auto;"></div>' : '';
+
+        var personnel = [
+            {name:'Erika Beatris Blas Beltran', role:'Gerenta General'},
+            {name:'Antony Davila Sanchez', role:'Coordinador de Proyecto'},
+            {name:'Victoria Sosa Zapata', role:'Ingeniera de SOOMA'},
+            {name:'Elvis Eliseo Garriazo Casafranca', role:'Supervisor de Proyecto'}
+        ];
+        var personnelHtml = '<div style="margin:0 auto 20px auto;width:80%;border:1px solid #d0d5dd;border-radius:8px;padding:14px 18px;background:#f8fafc;">' +
+            '<div style="font-size:12px;font-weight:700;color:#0f172a;text-align:center;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Personal Responsable</div>' +
+            '<table cellpadding="4" cellspacing="0" style="width:100%;font-size:11px;color:#444;">';
+        for (var pi = 0; pi < personnel.length; pi++) {
+            personnelHtml += '<tr><td style="padding:3px 8px;width:40%;font-weight:600;color:#0f172a;border-bottom:1px solid #e2e8f0;">' + esc(personnel[pi].role) + '</td>' +
+                '<td style="padding:3px 8px;border-bottom:1px solid #e2e8f0;">' + esc(personnel[pi].name) + '</td></tr>';
+        }
+        personnelHtml += '</table></div>';
+
+        var firstPage = '' +
+            '<div style="text-align:center;padding-bottom:14px;margin-bottom:18px;border-bottom:3px solid #f0c929;">' +
+            logoHtml +
+            '<div style="font-size:28px;font-weight:800;color:#0f172a;letter-spacing:1px;">Z&amp;R</div>' +
+            '<div style="font-size:18px;font-weight:700;color:#f0c929;letter-spacing:2px;margin-top:-2px;">NEW TECHNOLOGY S.A.C.</div>' +
+            '<div style="font-size:9px;color:#667085;text-transform:uppercase;letter-spacing:3px;margin-top:4px;">Soluciones en Ingenier\u00eda, Seguridad y Tecnolog\u00eda</div></div>' +
+            '</div>' +
+            personnelHtml +
+            '<div style="margin-bottom:20px;">' +
+            '<div style="font-size:16px;font-weight:700;color:#0f172a;text-transform:uppercase;">INFORME DE MANTENIMIENTO PREVENTIVO DEL SISTEMA HVAC Y PRESURIZADORES</div>' +
+            '<div style="font-size:10px;color:#98a2b3;margin-top:4px;"><b>Generado:</b> ' + fechaActual + '</div></div>' +
+
+            '<div style="margin-bottom:16px;">' +
+            '<div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;">1. OBJETIVO</div>' +
+            '<div style="font-size:12px;color:#444;line-height:1.6;">El presente informe tiene como objetivo detallar las actividades ejecutadas durante la realizaci\u00f3n de los trabajos de mantenimiento preventivo de los sistemas HVAC (Heating, Ventilation and Air Conditioning) y de los sistemas de presurizaci\u00f3n instalados en la Unidad Minera Inmaculada, con la finalidad de garantizar su correcta operaci\u00f3n, confiabilidad y disponibilidad para mantener las condiciones adecuadas de ventilaci\u00f3n, climatizaci\u00f3n y seguridad en las instalaciones.</div></div>' +
+
+            '<div style="margin-bottom:16px;">' +
+            '<div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;">2. ALCANCE</div>' +
+            '<div style="font-size:12px;color:#444;line-height:1.6;">El alcance de este informe comprende todas las actividades de inspecci\u00f3n, limpieza, mantenimiento, pruebas operativas y verificaci\u00f3n funcional realizadas a los equipos HVAC y sistemas de presurizaci\u00f3n ubicados en las salas el\u00e9ctricas, subestaciones, cuartos de control, centros de distribuci\u00f3n el\u00e9ctrica y dem\u00e1s \u00e1reas consideradas dentro del programa de mantenimiento preventivo de la Unidad Minera Inmaculada.<br><br>Las actividades ejecutadas se desarrollaron considerando las recomendaciones de los fabricantes de los equipos, las buenas pr\u00e1cticas de mantenimiento industrial y los est\u00e1ndares aplicables a sistemas HVAC y de presurizaci\u00f3n.</div></div>' +
+
+            '<div style="margin-bottom:16px;">' +
+            '<div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;">3. DESARROLLO DE LOS TRABAJOS</div>' +
+            '<div style="font-size:12px;color:#444;line-height:1.6;">A continuaci\u00f3n, se detallan las actividades realizadas para la ejecuci\u00f3n del mantenimiento preventivo de los sistemas HVAC y presurizadores en la Unidad Minera Inmaculada.</div>' +
+            '<div style="font-size:12px;font-weight:700;color:#0f172a;margin-bottom:4px;">3.1. \u00cdNDICE GENERAL DE ACTIVIDADES REALIZADAS</div>' +
+            '<div style="font-size:12px;color:#444;line-height:1.8;">' +
+            '&bull; Verificaci\u00f3n del estado operativo de los equipos antes del inicio del mantenimiento.<br>' +
+            '&bull; Inspecci\u00f3n visual y revisi\u00f3n mec\u00e1nica de unidades HVAC y presurizadores.<br>' +
+            '&bull; Limpieza de filtros de aire, prefiltros y elementos filtrantes.<br>' +
+            '&bull; Limpieza interna y externa de evaporadores, condensadores y serpentines.<br>' +
+            '&bull; Inspecci\u00f3n y ajuste de conexiones el\u00e9ctricas de fuerza y control.<br>' +
+            '&bull; Verificaci\u00f3n del estado de motores el\u00e9ctricos y ventiladores.<br>' +
+            '&bull; Revisi\u00f3n y ajuste de correas, poleas y elementos de transmisi\u00f3n mec\u00e1nica.<br>' +
+            '&bull; Verificaci\u00f3n del funcionamiento de compresores y circuitos de refrigeraci\u00f3n.<br>' +
+            '&bull; Medici\u00f3n de par\u00e1metros el\u00e9ctricos (voltaje, corriente y continuidad).<br>' +
+            '&bull; Verificaci\u00f3n de termostatos, sensores de temperatura y dispositivos de control.<br>' +
+            '&bull; Inspecci\u00f3n y limpieza de tableros el\u00e9ctricos asociados al sistema HVAC.<br>' +
+            '&bull; Verificaci\u00f3n del estado de ductos, rejillas y difusores de aire.<br>' +
+            '&bull; Pruebas funcionales de arranque, operaci\u00f3n y parada de los equipos.<br>' +
+            '&bull; Verificaci\u00f3n de presiones diferenciales en sistemas de presurizaci\u00f3n.<br>' +
+            '&bull; Comprobaci\u00f3n del correcto flujo de aire y renovaci\u00f3n en las \u00e1reas protegidas.<br>' +
+            '&bull; Identificaci\u00f3n y correcci\u00f3n de anomal\u00edas dentro del alcance del mantenimiento.<br>' +
+            '&bull; Registro fotogr\u00e1fico de las actividades ejecutadas.<br>' +
+            '</div></div>' +
+
+            '<div style="margin-bottom:16px;">' +
+            '<div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;">4. TRABAJOS REALIZADOS EN LAS \u00c1REAS</div>' +
+            '<div style="font-size:12px;font-weight:700;color:#047857;margin-bottom:4px;">4.1. MANTENIMIENTO PREVENTIVO EN SALAS EL\u00c9CTRICAS</div>' +
+            '<div style="font-size:12px;color:#444;line-height:1.6;">Se realizaron labores de inspecci\u00f3n, limpieza y mantenimiento preventivo de las unidades HVAC instaladas en las salas el\u00e9ctricas de la Unidad Minera Inmaculada.</div>' +
+            '<div style="font-size:12px;color:#444;line-height:1.8;">' +
+            '&bull; Limpieza de filtros y serpentines.<br>' +
+            '&bull; Limpieza de ventiladores y componentes internos.<br>' +
+            '&bull; Ajuste de conexiones el\u00e9ctricas.<br>' +
+            '&bull; Verificaci\u00f3n de motores y ventiladores.<br>' +
+            '&bull; Revisi\u00f3n de par\u00e1metros operativos.<br>' +
+            '&bull; Comprobaci\u00f3n de temperaturas de funcionamiento.<br>' +
+            '&bull; Verificaci\u00f3n de drenajes de condensado.<br>' +
+            '&bull; Pruebas de funcionamiento continuo.<br>' +
+            '</div></div>' +
+
+            '<div style="margin-bottom:16px;">' +
+            '<div style="font-size:12px;font-weight:700;color:#b45309;margin-bottom:4px;">4.2. MANTENIMIENTO PREVENTIVO DE PRESURIZADORES</div>' +
+            '<div style="font-size:12px;color:#444;line-height:1.6;">Se efectu\u00f3 el mantenimiento preventivo de los sistemas de presurizaci\u00f3n instalados en las \u00e1reas cr\u00edticas de la operaci\u00f3n.</div>' +
+            '<div style="font-size:12px;color:#444;line-height:1.8;">' +
+            '&bull; Inspecci\u00f3n mec\u00e1nica de ventiladores presurizadores.<br>' +
+            '&bull; Verificaci\u00f3n del estado de motores el\u00e9ctricos.<br>' +
+            '&bull; Limpieza de equipos y componentes.<br>' +
+            '&bull; Ajuste de conexiones el\u00e9ctricas y bornes.<br>' +
+            '&bull; Verificaci\u00f3n de sensores y dispositivos de control.<br>' +
+            '&bull; Medici\u00f3n de presi\u00f3n diferencial.<br>' +
+            '&bull; Comprobaci\u00f3n del flujo de aire suministrado.<br>' +
+            '&bull; Pruebas operativas de arranque y parada.<br>' +
+            '&bull; Verificaci\u00f3n del correcto funcionamiento de los sistemas de seguridad.<br>' +
+            '</div></div>' +
+
+            '<div style="margin-bottom:16px;">' +
+            '<div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;">5. RESULTADOS OBTENIDOS</div>' +
+            '<div style="font-size:12px;color:#444;line-height:1.6;">Como resultado de las actividades ejecutadas, los sistemas HVAC y presurizadores intervenidos quedaron operativos y en condiciones adecuadas para su funcionamiento, garantizando la ventilaci\u00f3n, climatizaci\u00f3n y presurizaci\u00f3n requeridas en las instalaciones de la Unidad Minera Inmaculada.<br><br>Asimismo, se identificaron y corrigieron observaciones menores encontradas durante la inspecci\u00f3n, contribuyendo a mejorar la confiabilidad y disponibilidad de los equipos.</div></div>' +
+
+            '<div style="margin-bottom:16px;">' +
+            '<div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;">6. CONCLUSIONES</div>' +
+            '<div style="font-size:12px;color:#444;line-height:1.8;">' +
+            '&bull; Se ejecut\u00f3 satisfactoriamente el mantenimiento preventivo programado de los sistemas HVAC y presurizadores.<br>' +
+            '&bull; Los equipos inspeccionados presentan condiciones operativas adecuadas para su funcionamiento.<br>' +
+            '&bull; Las actividades realizadas permiten reducir la probabilidad de fallas no programadas y prolongar la vida \u00fatil de los equipos.<br>' +
+            '&bull; Se recomienda continuar con el programa peri\u00f3dico de mantenimiento preventivo y monitoreo operacional de los sistemas.<br>' +
+            '</div></div>' +
+
+            '<div style="margin-bottom:16px;">' +
+            '<div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px;">7. ANEXOS</div>' +
+            '<div style="font-size:12px;color:#444;line-height:1.8;">' +
+            '&bull; Registro fotogr\u00e1fico de las actividades realizadas.<br>' +
+            '&bull; Formatos de inspecci\u00f3n y mantenimiento.<br>' +
+            '&bull; Mediciones el\u00e9ctricas y par\u00e1metros operativos registrados durante la intervenci\u00f3n.<br>' +
+            '</div></div>' +
+
+        '<hr style="border:none;border-top:2px solid #e0e0e0;margin:24px 0;">' +
+            '<div style="text-align:center;font-size:12px;font-weight:700;color:#0f172a;margin-bottom:20px;">DETALLE DE EQUIPOS MANTENIDOS</div>';
+        var firmasHtml = '' +
+            '<div style="margin-bottom:16px;">' +
+            '<div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:12px;text-transform:uppercase;text-align:center;">Firmas de Responsables</div>' +
+            '<table cellpadding="0" cellspacing="0" style="width:100%;">';
+        for (var si3 = 0; si3 < personnel.length; si3 += 2) {
+            firmasHtml += '<tr>';
+            for (var sj = 0; sj < 2; sj++) {
+                var pIdx = si3 + sj;
+                if (pIdx < personnel.length) {
+                    firmasHtml += '<td style="width:50%;padding:30px 40px;text-align:center;vertical-align:bottom;">' +
+                        '<div style="width:100%;border-bottom:2px solid #333;margin-bottom:10px;padding-top:60px;"></div>' +
+                        '<div style="font-size:12px;font-weight:700;color:#0f172a;margin-top:6px;">' + esc(personnel[pIdx].name) + '</div>' +
+                        '<div style="font-size:10px;color:#667085;margin-top:2px;">' + esc(personnel[pIdx].role) + '</div>' +
+                        '</td>';
+                } else {
+                    firmasHtml += '<td style="width:50%;"></td>';
+                }
+            }
+            firmasHtml += '</tr>';
+        }
+        firmasHtml += '</table></div>';
+
+        var wh = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">' +
+        '<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>' + esc(titulo) + '</title>' +
+        '<style>body{font-family:\'Segoe UI\',Calibri,Arial,sans-serif;margin:36px;color:#333;line-height:1.4;}' +
+        '@page{margin:2.5cm 2.5cm 2cm 2.5cm;}' +
+        'h1,h2,h3,h4,p{margin:0;}' +
+        'table{border-collapse:collapse;}</style>' +
+        '<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->' +
+        '</head><body>' +
+        firstPage +
+        equiposHtml +
+        firmasHtml +
+        '<div style="text-align:center;font-size:9px;color:#98a2b3;margin-top:30px;padding-top:10px;border-top:1px solid #ddd;">' +
+        'Z&amp;R NEW TECHNOLOGY S.A.C. &bull; RUC: 20614622784 &bull; erikablaszrnewtechnology@gmail.com<br>' +
+        'Este informe fue generado autom\u00e1ticamente el ' + fechaActual + '</div>' +
+        '</body></html>';
+
+        var blob = new Blob([wh], { type:'application/msword;charset=utf-8' });
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = tl + '.doc';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+    }
+
+    function init() {
+        var session = getSession();
+        if (session && session.username) {
+            currentUser = session;
+            document.body.classList.add('logged-in');
+            updateUserBar();
+        }
+
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            var u = document.getElementById('loginUser').value.trim();
+            var p = document.getElementById('loginPass').value.trim();
+            var err = document.getElementById('loginError');
+            if (!u || !p) { err.textContent='Complete todos los campos'; err.style.display=''; return; }
+            if (loginUser(u,p)) { err.style.display='none'; }
+            else { err.textContent='Usuario o contrase\u00f1a incorrectos'; err.style.display=''; }
+        });
+        document.getElementById('loginPass').addEventListener('keydown', function(e) { if (e.keyCode===13) document.getElementById('loginBtn').click(); });
+        document.getElementById('showRegisterLink').addEventListener('click', showRegisterView);
+        document.getElementById('showLoginLink').addEventListener('click', showLoginView);
+        document.getElementById('registerBtn').addEventListener('click', function() {
+            var u = document.getElementById('regUser').value.trim();
+            var p = document.getElementById('regPass').value;
+            var p2 = document.getElementById('regPass2').value;
+            var err = document.getElementById('regError');
+            if (!u || !p || !p2) { err.textContent='Complete todos los campos'; err.style.display=''; return; }
+            if (p!==p2) { err.textContent='LAS CONTRASE\u00d1AS NO COINCIDEN'; err.style.display=''; return; }
+            if (p.length<4) { err.textContent='LA CONTRASE\u00d1A DEBE TENER AL MENOS 4 CARACTERES'; err.style.display=''; return; }
+            var role = document.getElementById('roleAdmin').classList.contains('active') ? 'admin' : 'tecnico';
+            if (!registerUser(u,p,role)) { err.textContent='El usuario ya existe'; err.style.display=''; return; }
+            err.style.display='none';
+            loginUser(u,p);
+            showLoginView();
+        });
+        document.getElementById('regPass2').addEventListener('keydown', function(e) { if (e.keyCode===13) document.getElementById('registerBtn').click(); });
+        document.getElementById('roleAdmin').addEventListener('click', function() { this.classList.add('active'); document.getElementById('RoleTecnico').classList.remove('active'); });
+        document.getElementById('RoleTecnico').addEventListener('click', function() { this.classList.add('active'); document.getElementById('roleAdmin').classList.remove('active'); });
+        document.getElementById('logoutBtn').addEventListener('click', logoutUser);
+
+        if (!currentUser) { return; }
+
+        var fechaInput = document.getElementById('fecha');
+        if (fechaInput) fechaInput.value = todayStr();
+
+        initFotoSlots();
+
+        abrirDB(function(err) {
+            if (err) { alert('Error: No se pudo abrir la base de datos. Los datos no se guardar\u00e1n.'); return; }
+            cargarYRenderizar();
+        });
+
+        document.getElementById('hvacForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var sala = document.getElementById('sala').value.trim();
+            var equipo = document.getElementById('equipo').value.trim();
+            var dA = document.getElementById('desc-antes').value.trim();
+            var dD = document.getElementById('desc-durante').value.trim();
+            var dDe = document.getElementById('desc-despues').value.trim();
+            var cond = document.getElementById('condicion').value.trim();
+            var fec = document.getElementById('fecha').value || new Date().toISOString();
+
+            if (!sala) { alert('Ingrese la sala el\u00e9ctrica'); return; }
+            if (!equipo) { alert('Ingrese el n\u00famero del equipo HVAC'); return; }
+            if (!validarFotos()) { alert('Debe agregar 3 fotos en cada etapa'); return; }
+
+            var registro = {
+                id: Date.now(),
+                sala: sala,
+                equipo: equipo,
+                descripciones: {
+                    antes: dA,
+                    durante: dD,
+                    despues: dDe
+                },
+                fotos: {
+                    antes: [fotosData.antes[0], fotosData.antes[1], fotosData.antes[2]],
+                    durante: [fotosData.durante[0], fotosData.durante[1], fotosData.durante[2]],
+                    despues: [fotosData.despues[0], fotosData.despues[1], fotosData.despues[2]]
+                },
+                condicion: cond || '',
+                fecha: new Date(fec).toISOString()
+            };
+
+            guardarRegistro(registro, function(err) {
+                if (err) { alert('Error al guardar: ' + err); return; }
+                HVACApp.limpiar();
+                cargarYRenderizar();
+                alert('Registro guardado exitosamente');
+            });
+        });
+
+        document.getElementById('reportAllBtn').addEventListener('click', function() {
+            obtenerRegistros(function(err, regs) {
+                if (!err && regs.length) descargarWord(regs, 'Informe completo');
+                else alert('No hay registros');
+            });
+        });
+
+        document.getElementById('deleteAllBtn').addEventListener('click', function() {
+            if (!isAdmin()) { alert('Solo administradores pueden eliminar registros'); return; }
+            obtenerRegistros(function(err, regs) {
+                if (err || !regs.length) return;
+                if (confirm('\u00bfEliminar TODOS?')) {
+                    if (confirm('\u00bfEst\u00e1 seguro? No se puede deshacer.')) {
+                        eliminarTodos(function() { cargarYRenderizar(); });
+                    }
+                }
+            });
+        });
+
+        document.getElementById('exportBtn').addEventListener('click', function() {
+            obtenerRegistros(function(err, registros) {
+                if (err || !registros.length) { alert('No hay registros'); return; }
+                var csv = 'Fecha,Sala,Equipo,Desc_Antes,Desc_Durante,Desc_Despues,Condici\u00f3n,Fotos_Antes,Fotos_Durante,Fotos_Despues\n';
+                for (var i = 0; i < registros.length; i++) {
+                    var r = registros[i], f = r.fotos || {}, d = r.descripciones || {};
+                    csv += '"' + formatFecha(r.fecha) + '","' + r.sala + '","' + r.equipo + '","' + (d.antes||'') + '","' + (d.durante||'') + '","' + (d.despues||'') + '","' + (r.condicion||r.tecnico||'') + '",' + (f.antes?f.antes.length:0) + ',' + (f.durante?f.durante.length:0) + ',' + (f.despues?f.despues.length:0) + '\n';
+                }
+                var blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
+                var a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'registros-hvac.csv';
+                a.click();
+                URL.revokeObjectURL(a.href);
+            });
+        });
+
+        document.querySelectorAll('.phase-block').forEach(function(b) { b.classList.remove('collapsed'); });
+    }
+
+    function limpiar() {
+        fotosData = { antes: ['','',''], durante: ['','',''], despues: ['','',''] };
+        phaseNames.forEach(function(phase) {
+            for (var i = 0; i < 3; i++) {
+                var input = document.getElementById('in-' + phase + '-' + i);
+                if (input && input.parentElement) {
+                    var slot = input.parentElement;
+                    var ub = slot.children[0];
+                    var pv = slot.children[2];
+                    if (ub) ub.style.display = 'flex';
+                    if (pv) { pv.style.display = 'none'; pv.innerHTML = ''; }
+                    if (ub) {
+                        var st = ub.querySelector('.slot-status');
+                        if (st) st.textContent = 'Agregar';
+                    }
+                    input.value = '';
+                }
+            }
+            actualizarProgreso(phase);
+        });
+        document.getElementById('sala').value = '';
+        document.getElementById('equipo').value = '';
+        document.getElementById('desc-antes').value = '';
+        document.getElementById('desc-durante').value = '';
+        document.getElementById('desc-despues').value = '';
+        document.getElementById('condicion').value = '';
+        document.getElementById('fecha').value = '';
+    }
+
+    init();
+
+    return { limpiar: limpiar, cargarYRenderizar: cargarYRenderizar };
+})();
+</script>
+</body>
+</html>
